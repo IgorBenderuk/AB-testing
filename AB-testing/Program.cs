@@ -19,17 +19,27 @@ namespace AB_testing
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());// injecting the automapper for mapping purpuse
+            
+            // injecting the automapper for mapping purpuse
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();//injecting the interfaces and their implementation
+            //injecting the interfaces and their implementation
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             //injecting db context
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
+            //ensuring creating database
+            using (var scope = app.Services.CreateScope())
+            {
+                var service = scope.ServiceProvider;
+                var context = service.GetService<AppDbContext>();
+                context.Database.EnsureDeleted();
+            }
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

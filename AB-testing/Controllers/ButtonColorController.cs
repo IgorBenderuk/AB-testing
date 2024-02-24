@@ -18,7 +18,8 @@ namespace AB_testing.Controllers
         [HttpGet]
         public async Task<IActionResult> AddButtonColorrecord( Guid? DeviceToken )
         {
-            DeviceToken ??= Guid.NewGuid(); // creates device token, for testing purpuse, simulates scenario when client has real device_token 
+            // creates device token, for testing purpuse, simulates scenario when client has real device_token 
+            DeviceToken ??= Guid.NewGuid(); 
             if (!ModelState.IsValid) return BadRequest("Invalid modelstate");
 
             var existingButtoncolor = await unitOfWork.ButtonColorRepo.GetSingleAsync(DeviceToken.Value);
