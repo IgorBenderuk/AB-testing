@@ -33,12 +33,12 @@ namespace AB_testing
             var app = builder.Build();
 
             //ensuring creating database
-            using (var scope = app.Services.CreateScope())
+            /*using (var scope = app.Services.CreateScope())
             {
                 var service = scope.ServiceProvider;
                 var context = service.GetService<AppDbContext>();
-                context.Database.EnsureDeleted();
-            }
+              //  context.Database.EnsureDeleted();
+            }*/
 
             if (app.Environment.IsDevelopment())
             {

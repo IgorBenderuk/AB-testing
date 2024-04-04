@@ -45,7 +45,7 @@ namespace AB_testing.Repos
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"AchivmentRepo Remove,{typeof(ButtonColorRepo)}");
+                logger.LogError(ex, $"AchivmentRepo Remove,{GetType().Name}");
                 throw;
             }
         }

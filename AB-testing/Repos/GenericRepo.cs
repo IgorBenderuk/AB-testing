@@ -24,7 +24,7 @@ namespace AB_testing.Repos
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"AchivmentRepo GetAll,{typeof(GenericRepo<T>)}");
+                logger.LogError(ex, $"Error Occurs");
                 throw;
             }
         }
@@ -44,8 +44,8 @@ namespace AB_testing.Repos
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $" Error Occurs in GenericRepo while processing  Create method of {typeof(GenericRepo<T>)} entity");
-                return false;
+                logger.LogError(ex, $"Error Occurs in GenericRepo while processing AchivmentRepo CreateAsync,{GetType().Name}");
+                throw;
             }
         }
 
